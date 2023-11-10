@@ -40,6 +40,7 @@ namespace development_assignment_4
         static void Setup()
         {
             // Your one-time setup code here
+            Console.WriteLine("This is a test");
         }
 
         static void Update()
