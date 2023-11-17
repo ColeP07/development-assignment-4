@@ -12,7 +12,9 @@ namespace development_assignment_4
         static void Main(string[] args)
         {
             // Create a window to draw to. The arguments define width and height
-            Raylib.InitWindow(400, 800, title);
+
+            Raylib.InitWindow(500, 800, title);
+
             // Set the target frames-per-second (FPS)
             Raylib.SetTargetFPS(60);
 
@@ -40,6 +42,7 @@ namespace development_assignment_4
         static void Setup()
         {
             // Your one-time setup code here
+            Console.WriteLine("This is a test");
         }
 
         static void Update()
