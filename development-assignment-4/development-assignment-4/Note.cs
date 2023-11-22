@@ -26,14 +26,17 @@ namespace development_assignment_4
             Raylib.DrawRectangleV(position, size, color);
         }
 
+       
         public void Move()
         {
             position.Y += speed;
         }
 
+
+        // Makes the X position of the note one of the 4 lanes randomly
         public void DecideLane()
         {
-            position.X = rng.Next(4)*125;
+            position.X = rng.Next(4)*size.X;
         }
     }
 }
