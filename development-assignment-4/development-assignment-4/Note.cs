@@ -23,6 +23,7 @@ namespace development_assignment_4
 
         public void Draw()
         {
+            DecideLane();
             Raylib.DrawRectangleV(position, size, color);
         }
 
@@ -33,27 +34,7 @@ namespace development_assignment_4
 
         public void DecideLane()
         {
-            int noteLane = rng.Next(4);
-
-            if (noteLane == 0)
-            {
-                position.X = 0;
-            }
-
-            else if (noteLane == 1)
-            {
-                position.X = 125;
-            }
-
-            else if (noteLane == 2)
-            {
-                position.X = 250;
-            }
-
-            else
-            {
-                position.X = 375;
-            }
+            position.X = rng.Next(4)*125;
         }
     }
 }
