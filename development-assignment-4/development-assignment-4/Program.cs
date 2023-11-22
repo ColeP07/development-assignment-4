@@ -8,7 +8,9 @@ namespace development_assignment_4
     {
         // If you need variables in the Program class (outside functions), you must mark them as static
         static string title = "Game Title";
-        static Note note;
+        static Note[] notes = new Note[10];
+        static float timer = 0;
+        static int noteIndex = 0;
 
         static void Main(string[] args)
         {
@@ -41,14 +43,40 @@ namespace development_assignment_4
         static void Setup()
         {
             // Your one-time setup code here
-            note = new Note();
+            notes[0] = new Note();
+
+            for (int i = 0; i < notes.Length; i++)
+            {
+                notes[i] = new Note();
+            }
         }
 
         static void Update()
         {
             // Your game code run each frame here
-            note.Draw();
-            note.Move();
+            
+            timer += Raylib.GetFrameTime();
+            if (timer >= 0.5)
+            {
+               if (noteIndex < notes.Length)
+                {
+                    notes[noteIndex] = new Note();
+                    notes[noteIndex].DecideLane();
+                    noteIndex++;
+                }
+                else
+                {
+                    noteIndex = 0;
+                }
+
+               timer = 0;
+            }
+
+            foreach (Note note in notes)
+            {
+                note.Draw();
+                note.Move();
+            }
         }
     }
 }
