@@ -8,6 +8,7 @@ namespace development_assignment_4
     {
         // If you need variables in the Program class (outside functions), you must mark them as static
         static string title = "Game Title";
+        static Note note;
 
         static void Main(string[] args)
         {
@@ -40,12 +41,13 @@ namespace development_assignment_4
         static void Setup()
         {
             // Your one-time setup code here
-            Console.WriteLine("This is a test");
+            note = new Note();
         }
 
         static void Update()
         {
             // Your game code run each frame here
+            note.Draw();
         }
     }
 }
