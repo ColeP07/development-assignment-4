@@ -8,7 +8,7 @@ namespace development_assignment_4
     {
         // If you need variables in the Program class (outside functions), you must mark them as static
         static string title = "Game Title";
-        static Note[] notes = new Note[10];
+        static Note[] notes = new Note[100];
         static float timer = 0;
         static int noteIndex = 0;
 
