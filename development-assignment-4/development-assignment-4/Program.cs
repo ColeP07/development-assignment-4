@@ -48,6 +48,7 @@ namespace development_assignment_4
         {
             // Your game code run each frame here
             note.Draw();
+            note.Move();
         }
     }
 }

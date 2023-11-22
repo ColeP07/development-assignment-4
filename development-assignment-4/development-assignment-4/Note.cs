@@ -8,7 +8,7 @@ namespace development_assignment_4
     {
         public Vector2 position;
         public Vector2 size;
-        public Vector2 speed;
+        public float speedY;
         public Color color = Color.BLACK;
         Random rng = new Random();
 
@@ -18,11 +18,17 @@ namespace development_assignment_4
             size.Y = 60;
             position.X = 0;
             position.Y = 0;
+            speedY = 10;
         }
 
         public void Draw()
         {
             Raylib.DrawRectangleV(position, size, color);
+        }
+
+        public void Move()
+        {
+            position.Y += speedY;
         }
 
         public void DecideLane()
