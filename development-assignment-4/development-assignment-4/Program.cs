@@ -1,6 +1,7 @@
 ﻿// Include necessary libraries
 using Raylib_cs;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace development_assignment_4
 {
@@ -11,6 +12,9 @@ namespace development_assignment_4
         static Note[] notes = new Note[100];
         static float timer = 0;
         static int noteIndex = 0;
+
+        static public Vector2 noteHitobject = new Vector2(125, 10);
+        static public Vector2 noteHitposition = new Vector2(0, 675);
 
         static void Main(string[] args)
         {
@@ -55,6 +59,7 @@ namespace development_assignment_4
         {
             // Your game code run each frame here
             
+            // Notes
             timer += Raylib.GetFrameTime();
             if (timer >= 0.5)
             {
@@ -77,6 +82,41 @@ namespace development_assignment_4
                 note.Draw();
                 note.Move();
             }
+
+
+            //Adding controls
+
+            //1st column
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_H) || Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            {
+                noteHitposition.X = 0;
+            }
+
+            // 2nd column
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_J) || Raylib.IsKeyDown(KeyboardKey.KEY_S))
+            {
+                noteHitposition.X = 125;
+            }
+
+            // 3rd column
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_K) || Raylib.IsKeyDown(KeyboardKey.KEY_D))
+            {
+                noteHitposition.X = 250;
+            }
+
+            // 4th column
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_L) || Raylib.IsKeyDown(KeyboardKey.KEY_F))
+            {
+                noteHitposition.X = 375;
+            }
+
+            // adding hit detection
+
+            if (notePosition)
+            Raylib.DrawRectangleV(noteHitposition, noteHitobject, Color.SKYBLUE);
+            
+            
+
         }
     }
 }
