@@ -13,8 +13,8 @@ namespace development_assignment_4
         static float timer = 0;
         static int noteIndex = 0;
 
-        static public Vector2 noteHitobject = new Vector2(125, 10);
-        static public Vector2 noteHitposition = new Vector2(0, 675);
+        static Vector2 noteHitsize = new Vector2(125, 10);
+        
 
         static void Main(string[] args)
         {
@@ -58,7 +58,9 @@ namespace development_assignment_4
         static void Update()
         {
             // Your game code run each frame here
-            
+            var Note = new Note();
+            Vector2 noteHitposition = new Vector2(-125, 675);
+
             // Notes
             timer += Raylib.GetFrameTime();
             if (timer >= 0.5)
@@ -66,7 +68,7 @@ namespace development_assignment_4
                if (noteIndex < notes.Length)
                 {
                     notes[noteIndex] = new Note();
-                    notes[noteIndex].DecideLane();
+                    notes[noteIndex].decideLane();
                     noteIndex++;
                 }
                 else
@@ -77,15 +79,10 @@ namespace development_assignment_4
                timer = 0;
             }
 
-            foreach (Note note in notes)
-            {
-                note.Draw();
-                note.Move();
-            }
-
-
             //Adding controls
 
+
+            
             //1st column
             if (Raylib.IsKeyDown(KeyboardKey.KEY_H) || Raylib.IsKeyDown(KeyboardKey.KEY_A))
             {
@@ -112,11 +109,20 @@ namespace development_assignment_4
 
             // adding hit detection
 
-            if (notePosition)
-            Raylib.DrawRectangleV(noteHitposition, noteHitobject, Color.SKYBLUE);
-            
-            
 
+
+            foreach (Note note in notes)
+            {
+                Note.positionY += Note.speed;
+                
+                int noteYedge = Note.positionY + Note.sizeY;
+                bool isWithinY = noteYedge > 675;
+                bool isWithinX = Note.positionX == noteHitposition.X;
+                bool isWithinhitobject = isWithinX && isWithinY;
+                if (isWithinhitobject == true) Note.positionX = 1000;
+                Raylib.DrawRectangle(Note.positionX, Note.positionY, Note.sizeX, Note.sizeY, Color.BLACK);
+            }
+            Raylib.DrawRectangleV(noteHitposition, noteHitsize, Color.SKYBLUE);
         }
     }
 }
