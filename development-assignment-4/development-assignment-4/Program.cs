@@ -54,6 +54,9 @@ namespace development_assignment_4
                 notes[i] = new Note();
             }
         }
+        public static Vector2 position = new Vector2(0, -60);
+        public static Vector2 size = new Vector2(125, 60);
+        public static int speed = 150;
 
         static void Update()
         {
@@ -62,10 +65,14 @@ namespace development_assignment_4
             Vector2 noteHitposition = new Vector2(-125, 675);
 
             // Notes
+            float deltatime = Raylib.GetFrameTime();    
+            float noteForce = deltatime * speed;
+            position.Y += noteForce;
+
             timer += Raylib.GetFrameTime();
             if (timer >= 0.5)
             {
-               if (noteIndex < notes.Length)
+                if (noteIndex < notes.Length)
                 {
                     notes[noteIndex] = new Note();
                     notes[noteIndex].decideLane();
@@ -76,13 +83,16 @@ namespace development_assignment_4
                     noteIndex = 0;
                 }
 
-               timer = 0;
+                timer = 0;
+            }
+
+            foreach (Note note in notes)
+            {
+
+                Raylib.DrawRectangleV(position, size, Color.BLACK);
             }
 
             //Adding controls
-
-
-            
             //1st column
             if (Raylib.IsKeyDown(KeyboardKey.KEY_H) || Raylib.IsKeyDown(KeyboardKey.KEY_A))
             {
@@ -111,17 +121,7 @@ namespace development_assignment_4
 
 
 
-            foreach (Note note in notes)
-            {
-                Note.positionY += Note.speed;
-                
-                int noteYedge = Note.positionY + Note.sizeY;
-                bool isWithinY = noteYedge > 675;
-                bool isWithinX = Note.positionX == noteHitposition.X;
-                bool isWithinhitobject = isWithinX && isWithinY;
-                if (isWithinhitobject == true) Note.positionX = 1000;
-                Raylib.DrawRectangle(Note.positionX, Note.positionY, Note.sizeX, Note.sizeY, Color.BLACK);
-            }
+
             Raylib.DrawRectangleV(noteHitposition, noteHitsize, Color.SKYBLUE);
         }
     }
