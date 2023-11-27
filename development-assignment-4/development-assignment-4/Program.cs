@@ -12,7 +12,10 @@ namespace development_assignment_4
         static Note[] notes = new Note[100];
         static float timer = 0;
         static int noteIndex = 0;
-
+        public static Vector2 position = new Vector2(0, -60);
+        public static Vector2 size = new Vector2(125, 60);
+        public static int speed = 150;
+        static Vector2 noteHitposition = new Vector2(-125, 675);
         static Vector2 noteHitsize = new Vector2(125, 10);
         
 
@@ -54,15 +57,12 @@ namespace development_assignment_4
                 notes[i] = new Note();
             }
         }
-        public static Vector2 position = new Vector2(0, -60);
-        public static Vector2 size = new Vector2(125, 60);
-        public static int speed = 150;
+
 
         static void Update()
         {
             // Your game code run each frame here
-            var Note = new Note();
-            Vector2 noteHitposition = new Vector2(-125, 675);
+
 
             // Notes
             float deltatime = Raylib.GetFrameTime();    
@@ -86,9 +86,8 @@ namespace development_assignment_4
                 timer = 0;
             }
 
-            foreach (Note note in notes)
+            foreach (Note note in notes) 
             {
-
                 Raylib.DrawRectangleV(position, size, Color.BLACK);
             }
 
