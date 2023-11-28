@@ -12,9 +12,6 @@ namespace development_assignment_4
         static Note[] notes = new Note[100];
         static float timer = 0;
         static int noteIndex = 0;
-        public static Vector2 position = new Vector2(0, -60);
-        public static Vector2 size = new Vector2(125, 60);
-        public static int speed = 150;
         static Vector2 noteHitposition = new Vector2(-125, 675);
         static Vector2 noteHitsize = new Vector2(125, 10);
         
@@ -65,17 +62,15 @@ namespace development_assignment_4
 
 
             // Notes
-            float deltatime = Raylib.GetFrameTime();    
-            float noteForce = deltatime * speed;
-            position.Y += noteForce;
+
 
             timer += Raylib.GetFrameTime();
-            if (timer >= 0.5)
+            if (timer >= 0.6)
             {
                 if (noteIndex < notes.Length)
                 {
                     notes[noteIndex] = new Note();
-                    notes[noteIndex].decideLane();
+                    notes[noteIndex].DecideLane();
                     noteIndex++;
                 }
                 else
@@ -88,38 +83,52 @@ namespace development_assignment_4
 
             foreach (Note note in notes) 
             {
-                Raylib.DrawRectangleV(position, size, Color.BLACK);
+                note.Draw();
+                note.Move();
             }
 
+
             //Adding controls
+            float coloumn = -125;
+
             //1st column
             if (Raylib.IsKeyDown(KeyboardKey.KEY_H) || Raylib.IsKeyDown(KeyboardKey.KEY_A))
             {
-                noteHitposition.X = 0;
+                coloumn = 0;
             }
 
             // 2nd column
             if (Raylib.IsKeyDown(KeyboardKey.KEY_J) || Raylib.IsKeyDown(KeyboardKey.KEY_S))
             {
-                noteHitposition.X = 125;
+                coloumn = 125;
             }
 
             // 3rd column
             if (Raylib.IsKeyDown(KeyboardKey.KEY_K) || Raylib.IsKeyDown(KeyboardKey.KEY_D))
             {
-                noteHitposition.X = 250;
+                coloumn = 250;
             }
 
             // 4th column
             if (Raylib.IsKeyDown(KeyboardKey.KEY_L) || Raylib.IsKeyDown(KeyboardKey.KEY_F))
             {
-                noteHitposition.X = 375;
+                coloumn = 375;
             }
 
+
             // adding hit detection
+            noteHitposition.X = coloumn;
 
+            float leftEdge = noteHitposition.X;
+            float topEdge = noteHitposition.Y;
 
-
+            foreach (Note note in notes)
+            {
+                bool isWithinX = false;
+                bool isWithinY = note.position.Y + note.size.Y > topEdge;
+                if (coloumn == note.noteColumn) { isWithinX = true; }
+                if (isWithinX && isWithinY) note.position.Y = note.position.Y + 800;
+            }
 
             Raylib.DrawRectangleV(noteHitposition, noteHitsize, Color.SKYBLUE);
         }
